@@ -37,7 +37,7 @@ export function Shop() {
 
   const handleBasketShow = () => {
       setBasketShow(!isBasketShow)
-  }
+  }/* показ корзины */
 
   useEffect(function getGoods() {
     fetch(API_URL, {
@@ -52,6 +52,11 @@ export function Shop() {
       });
   }, []); /* вывод товаров на экран */
 
+
+const removeFromBasket = (itemId) => {
+  const newOrder = order.filter(el => el.id !== itemId)
+  setOrder(newOrder);/* удаление товара из корзины */
+}
   return (
     <main className="container content">
       <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
@@ -61,7 +66,10 @@ export function Shop() {
        />)}
 
        {
-         isBasketShow && <BasketList order={order} handleBasketShow={handleBasketShow}/>
+         isBasketShow && <BasketList 
+         order={order} /* берем из setOrder */ 
+         removeFromBasket={removeFromBasket}
+         handleBasketShow={handleBasketShow}/>
        }
     </main>
   );

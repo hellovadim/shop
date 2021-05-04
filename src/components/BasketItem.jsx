@@ -1,14 +1,15 @@
 function BasketItem(props) {
     const {
+        id,
         name,
         price,
-        quantity} = props;
-
+        quantity,
+        removeFromBasket = Function.prototype} = props;
 
 
     return  <li className="collection-item">
         {name} x {quantity} = {price}
-        <span className="secondary-content">
+        <span className="secondary-content" onClick={()=> removeFromBasket(id)}>
         <i className="material-icons basket-delete">clear</i></span>
   </li>
 }

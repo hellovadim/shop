@@ -52,6 +52,7 @@ nav{
   width: 50%;
   max-width: 95%;
   box-shadow: 0px 23px 20px 7px rgba(34, 60, 80, 0.35);
+  animation: show 500ms ease-in-out;
 }
 .basket-close {
   cursor: pointer;
@@ -61,4 +62,14 @@ nav{
 }
 .basket-delete{
   cursor: pointer;
+}
+@keyframes show {
+  from {
+    top: 70%;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
 }
