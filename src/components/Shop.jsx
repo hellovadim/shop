@@ -3,11 +3,13 @@ import { API_KEY, API_URL } from "../config";
 import { Preloader } from "./Preloader";
 import { GoodsList } from "./GoodsList";
 import { Cart } from "./Cart";
+import {BasketList} from './BasketList';
 
 export function Shop() {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [isBasketShow, setBasketShow] = useState(false);
 
   const addToBasket = (item) => {
     const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);/* ищем индекс если есть вернет индекс если нет то -1 */
@@ -33,6 +35,10 @@ export function Shop() {
     }
   };/* функция получила обьект с айди названием и ценой,*/
 
+  const handleBasketShow = () => {
+      setBasketShow(!isBasketShow)
+  }
+
   useEffect(function getGoods() {
     fetch(API_URL, {
       headers: {
@@ -48,11 +54,15 @@ export function Shop() {
 
   return (
     <main className="container content">
-      <Cart quantity={order.length} />
+      <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
       {loading ? (<Preloader /> ): (
           <GoodsList goods={goods}
           addToBasket={addToBasket}
        />)}
+
+       {
+         isBasketShow && <BasketList order={order} handleBasketShow={handleBasketShow}/>
+       }
     </main>
   );
 }
