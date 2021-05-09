@@ -59,9 +59,11 @@ nav{
   position: absolute;
   top: 8px;
   right: 19px;
+  color:#fff
 }
 .basket-delete{
   cursor: pointer;
+  
 }
 @keyframes show {
   from {
@@ -72,4 +74,12 @@ nav{
     top: 50%;
     opacity: 1;
   }
+}
+.basket-quantity{
+  cursor: pointer;
+  vertical-align: middle;
+  border-radius: 50%;
+  margin: 15px;
+  background-color: #26a69a;
+  color: #fff;
 }

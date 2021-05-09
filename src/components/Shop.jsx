@@ -39,6 +39,35 @@ export function Shop() {
       setBasketShow(!isBasketShow)
   }/* показ корзины */
 
+  const incQuantity = (itemId) => {
+      const newOrder = order.map(el => {
+        if(el.id === itemId) {
+          const newQuantity = el.quantity + 1;
+          return {
+            ...el,
+            quantity: newQuantity
+          }
+        }else{
+          return el;
+        }
+      });
+      setOrder(newOrder)
+  }/* увеличение товара в корзине */
+  const decQuantity = (itemId) => {
+    const newOrder = order.map(el => {
+      if(el.id === itemId) {
+        const newQuantity = el.quantity - 1;
+        return {
+          ...el,
+          quantity: newQuantity >=0 ? newQuantity : 0,
+        }
+      }else{
+        return el;
+      }
+    });
+    setOrder(newOrder)
+  }/* уменьшение товара в корзине */
+
   useEffect(function getGoods() {
     fetch(API_URL, {
       headers: {
@@ -69,7 +98,9 @@ const removeFromBasket = (itemId) => {
          isBasketShow && <BasketList 
          order={order} /* берем из setOrder */ 
          removeFromBasket={removeFromBasket}
-         handleBasketShow={handleBasketShow}/>
+         handleBasketShow={handleBasketShow}
+         incQuantity={incQuantity}
+         decQuantity={decQuantity}/>
        }
     </main>
   );
