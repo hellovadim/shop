@@ -4,12 +4,14 @@ import { Preloader } from "./Preloader";
 import { GoodsList } from "./GoodsList";
 import { Cart } from "./Cart";
 import {BasketList} from './BasketList';
+import {Alert} from './Alert';
 
 export function Shop() {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
   const [isBasketShow, setBasketShow] = useState(false);
+  const [alertName, setAlertName] = useState('');/* алерт что добавили в корзину */
 
   const addToBasket = (item) => {
     const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);/* ищем индекс если есть вернет индекс если нет то -1 */
@@ -33,6 +35,7 @@ export function Shop() {
         })
         setOrder(newOrder)
     }
+    setAlertName(item.name)/* алерт */
   };/* функция получила обьект с айди названием и ценой,*/
 
   const handleBasketShow = () => {
@@ -68,6 +71,10 @@ export function Shop() {
     setOrder(newOrder)
   }/* уменьшение товара в корзине */
 
+  const closeAlert = () => {
+    setAlertName('')
+  }
+
   useEffect(function getGoods() {
     fetch(API_URL, {
       headers: {
@@ -101,6 +108,9 @@ const removeFromBasket = (itemId) => {
          handleBasketShow={handleBasketShow}
          incQuantity={incQuantity}
          decQuantity={decQuantity}/>
+       }
+       {
+         alertName && <Alert name={alertName} closeAlert={closeAlert}/>
        }
     </main>
   );

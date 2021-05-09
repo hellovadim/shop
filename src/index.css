@@ -83,3 +83,17 @@ nav{
   background-color: #26a69a;
   color: #fff;
 }
+#toast-container{
+  top: 3rem !important;
+  animation: fade-in 250ms ease-in-out;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
